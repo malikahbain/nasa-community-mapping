@@ -17,10 +17,39 @@
             padding: 0;
             margin: 0;
         }
+        #map{
+            width: 80%;
+            height: 80vh;;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rbga(0,0,0,0.2);
+        }
+        .hidden-layer {
+            display: none !important;
+        }
+        .title-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: fit-content;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            color: #4d4d4d; /* Dark gray */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
         </style>
-        <title></title>
+        <title>Community Mapping</title>
     </head>
     <body>
+        <div class="title-container">
+            <h1>Community Mapping - Carriacou and Petite Martinique Flood Hazard Map</h1>
+        </div>
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -467,37 +496,43 @@
         bounds_group.addLayer(layer_kickemhouses_13);
         var baseMaps = {};
         var overlaysTree = [
-        {label: '<b>Kick Em Jenny Waves</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/kickemhouses_13.png" /> kickemhouses', layer: layer_kickemhouses_13},]},
-        {label: '<b>Waves at 15 meters</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/15mtrweb_12.png" /> 15mtrweb', layer: layer_15mtrweb_12},
-            {label: "waveheight15mnodata", layer: layer_waveheight15mnodata_11},]},
-        {label: '<b>Waves at 10 meters</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/10metersHouses_10.png" /> 10metersHouses', layer: layer_10metersHouses_10},
-            {label: "waveheight10mnodata", layer: layer_waveheight10mnodata_9},]},
-        {label: '<b>Flood at 20 meters</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/floodAt20metersforweb_8.png" /> floodAt20metersforweb', layer: layer_floodAt20metersforweb_8},
-            {label: "flood@20m copy", layer: layer_flood20mcopy_7},]},
-        {label: '<b>Beryl Flood</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/berylhousesWeb_6.png" /> berylhousesWeb', layer: layer_berylhousesWeb_6},
-            {label: "berylactualsurgenodata", layer: layer_berylactualsurgenodata_5},]},
-        {label: '<b>Line Divisions</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/builds_4.png" /> builds', layer: layer_builds_4},]},
-            {label: "Kick Em Jenny 1939", layer: layer_KickEmJenny1939_3},
-        {label: '<b>Basemaps</b>', selectAllCheckbox: true, children: [
-            {label: "OpenTopoMap", layer: layer_OpenTopoMap_2},
-            {label: "NASA DEM MAP", layer: layer_NASADEMMAP_1},
-            {label: "OpenStreetMap Standard aka Mapnik", layer: layer_OpenStreetMapStandardakaMapnik_0},]},]
-        var lay = L.control.layers.tree(null, overlaysTree,{
-            //namedToggle: true,
-            //selectorBack: false,
-            //closedSymbol: '&#8862; &#x1f5c0;',
-            //openedSymbol: '&#8863; &#x1f5c1;',
-            //collapseAll: 'Collapse all',
-            //expandAll: 'Expand all',
+            {label: '<b>Kick Em Jenny Waves</b>', selectAllCheckbox: true, children: [
+                {label: '<span class="hidden-layer">Kickemhouses</span>', layer: layer_kickemhouses_13} // Hidden via CSS
+            ]},
+            {label: '<b>Storm Surge at 15 meters</b>', selectAllCheckbox: true, children: [
+                {label: '<span class="hidden-layer">15mtrweb</span>', layer: layer_15mtrweb_12}, // Hidden via CSS
+                {label: '<span class="hidden-layer">waveheight15mnodata</span>', layer: layer_waveheight15mnodata_11} // Hidden via CSS
+            ]},
+            {label: '<b>Storm Surge at 10 meters</b>', selectAllCheckbox: true, children: [
+                {label: '<span class="hidden-layer">10metersHouses</span>', layer: layer_10metersHouses_10}, // Hidden via CSS
+                {label: '<span class="hidden-layer">waveheight10mnodata</span>', layer: layer_waveheight10mnodata_9} // Hidden via CSS
+            ]},
+            {label: '<b>Storm Surge at 20 meters</b>', selectAllCheckbox: true, children: [
+                {label: '<span class="hidden-layer">floodAt20metersforweb</span>', layer: layer_floodAt20metersforweb_8}, // Hidden via CSS
+                {label: '<span class="hidden-layer">flood20mcopy</span>', layer: layer_flood20mcopy_7} // Hidden via CSS
+            ]},
+            {label: '<b>Beryl 2024 Flooding Estimation</b>', selectAllCheckbox: true, children: [
+                {label: '<span class="hidden-layer">berylhousesWeb</span>', layer: layer_berylhousesWeb_6}, // Hidden via CSS
+                {label: '<span class="hidden-layer">berylactualsurgenodata</span>', layer: layer_berylactualsurgenodata_5} // Hidden via CSS
+            ]},
+            {label: '<b>Buildings</b>', selectAllCheckbox: true, children: [
+                {label: '<span class="hidden-layer">builds</span>', layer: layer_builds_4} // Hidden via CSS
+            ]},
+            {label: "Kick Em Jenny Historical Flooding 1939", children: [
+                {label: '<span class="hidden-layer">layer_KickEmJenny1939_3</span>', layer: layer_KickEmJenny1939_3} // Hidden via CSS
+            ]},
+            {label: '<b>Basemaps</b>', selectAllCheckbox: true, children: [
+                {label: '<span class="hidden-layer">OpenTopoMap</span>', layer: layer_OpenTopoMap_2}, // Hidden via CSS
+                {label: '<span class="hidden-layer">NASA DEM MAP</span>', layer: layer_NASADEMMAP_1}, // Hidden via CSS
+                {label: '<span class="hidden-layer">OpenStreetMap Standard aka Mapnik</span>', layer: layer_OpenStreetMapStandardakaMapnik_0} // Hidden via CSS
+            ]},
+        ];
+
+        var lay = L.control.layers.tree(null, overlaysTree, {
             collapsed: true,
         });
         lay.addTo(map);
+        setBounds();
         setBounds();
         L.ImageOverlay.include({
             getBounds: function () {
